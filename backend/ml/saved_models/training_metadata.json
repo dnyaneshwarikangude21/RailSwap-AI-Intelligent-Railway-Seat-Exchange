@@ -1,0 +1,42 @@
+{
+  "schema_version": "railswap-compatibility-v1",
+  "trained_at_utc": "2026-10-28T17:45:22.716842+00:00",
+  "dataset_path": "D:\\Railway seat exchange\\backend\\ml\\data\\synthetic_pairs.csv",
+  "row_count": 4320,
+  "train_rows": 3240,
+  "test_rows": 1080,
+  "train_groups": 270,
+  "test_groups": 90,
+  "feature_columns": [
+    "same_journey",
+    "reciprocal_match",
+    "preference_compatibility",
+    "coach_compatibility",
+    "berth_proximity",
+    "valid_berth_pair",
+    "journey_active",
+    "scope_satisfied"
+  ],
+  "target_column": "synthetic_compatible",
+  "target_description": "1 when the synthetic pair satisfies all documented hard-eligibility criteria, otherwise 0. This is synthetic compatibility, not real-world passenger acceptance.",
+  "label_source": "documented_synthetic_compatibility_rules",
+  "model_type": "RandomForestClassifier",
+  "model_parameters": {
+    "n_estimators": 240,
+    "max_depth": 10,
+    "min_samples_leaf": 3,
+    "class_weight": "balanced",
+    "random_state": 42,
+    "n_jobs": 1
+  },
+  "random_seed": 42,
+  "group_split": "GroupShuffleSplit grouped by synthetic journey scenario to reduce near-duplicate leakage.",
+  "environment": {
+    "python": "3.14.3",
+    "scikit_learn": "1.9.1",
+    "numpy": "2.5.4",
+    "pandas": "2.3.3",
+    "platform": "Windows-11-10.0.26300-SP0"
+  },
+  "limitation": "This model is trained on rule-derived synthetic labels. Metrics measure consistency with those labels and are not evidence of real-world passenger acceptance or railway approval."
+}

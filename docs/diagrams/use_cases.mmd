@@ -1,0 +1,20 @@
+flowchart LR
+    Passenger["Demo passenger"] --> Register["Register or sign in"]
+    Passenger --> Browsing["Browse synthetic trains"]
+    Browsing --> Booking["Add or remove a demo booking"]
+    Passenger --> Preference["Set berth and coach preference"]
+    Passenger --> Matching["Search reciprocal matches"]
+    Matching --> Explain["Review score and hard-rule explanations"]
+    Explain --> Request["Send consent-based exchange request"]
+    Passenger --> Respond["Accept, decline, or cancel request"]
+    Passenger --> Inbox["Read and mark notifications"]
+    Passenger --> Export["Export non-sensitive exchange summary"]
+    Passenger --> Analytics["Inspect ML evaluation and model status"]
+
+    Admin["Demo administrator"] --> Overview["View aggregate system health"]
+    Admin --> Redacted["View anonymized exchange states"]
+    Admin --> Advance["Advance explicitly simulated authorization gate"]
+    Admin --> ModelStatus["Inspect model/fallback status"]
+
+    System["Railway reservation, identity, or payment system"] -. "Never contacted" .-> Passenger
+    System -. "Never contacted" .-> Admin

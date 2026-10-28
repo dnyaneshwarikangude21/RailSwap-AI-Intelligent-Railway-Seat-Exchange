@@ -1,0 +1,532 @@
+.request-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 9px 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: rgba(10, 23, 39, 0.55);
+}
+
+.filter-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+}
+
+.filter-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 11px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  color: var(--muted);
+  background: transparent;
+  font-size: 0.7rem;
+  font-weight: 550;
+  transition:
+    color 150ms ease,
+    background 150ms ease,
+    border-color 150ms ease;
+}
+
+.filter-tab:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.filter-tab span {
+  display: inline-grid;
+  min-width: 18px;
+  height: 17px;
+  place-items: center;
+  padding: 0 4px;
+  border-radius: 999px;
+  color: var(--muted-deep);
+  background: rgba(255, 255, 255, 0.05);
+  font-size: 0.57rem;
+  font-weight: 650;
+}
+
+.filter-tab-active {
+  color: #b8f8fc;
+  border-color: rgba(34, 211, 238, 0.18);
+  background: rgba(34, 211, 238, 0.07);
+}
+
+.filter-tab-active span {
+  color: #b8f8fc;
+  background: rgba(34, 211, 238, 0.13);
+}
+
+.exchange-list {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.exchange-card {
+  overflow: hidden;
+  padding: 19px;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  background:
+    linear-gradient(120deg, rgba(34, 211, 238, 0.022), transparent 38%),
+    var(--panel-soft);
+}
+
+.exchange-card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 14px;
+}
+
+.exchange-direction {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  min-width: 0;
+}
+
+.direction-icon {
+  display: grid;
+  width: 35px;
+  height: 35px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+}
+
+.direction-incoming {
+  color: #7ce9dd;
+  border-color: rgba(45, 212, 191, 0.18);
+  background: rgba(45, 212, 191, 0.06);
+}
+
+.direction-outgoing {
+  color: #c5b2ff;
+  border-color: rgba(167, 139, 250, 0.18);
+  background: rgba(167, 139, 250, 0.06);
+}
+
+.exchange-direction > div {
+  min-width: 0;
+}
+
+.exchange-direction h3 {
+  overflow: hidden;
+  margin: 3px 0 2px;
+  color: #dceaf5;
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.exchange-direction p {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--muted-deep);
+  font-size: 0.64rem;
+}
+
+.exchange-direction p svg {
+  flex: 0 0 auto;
+}
+
+.exchange-card-status {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+}
+
+.exchange-score {
+  color: var(--muted-deep);
+  font-size: 0.61rem;
+}
+
+.exchange-parties {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: stretch;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid rgba(32, 52, 76, 0.66);
+  border-radius: 10px;
+  background: rgba(7, 19, 31, 0.34);
+}
+
+.exchange-party {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+}
+
+.exchange-party:last-child {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.exchange-party > span {
+  overflow: hidden;
+  max-width: 100%;
+  color: var(--muted);
+  font-size: 0.62rem;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.exchange-party > strong {
+  color: #d5f7f2;
+  font-size: 0.84rem;
+  font-weight: 600;
+}
+
+.exchange-party:last-child > strong {
+  color: #dfd6ff;
+}
+
+.exchange-party > small {
+  color: var(--muted-deep);
+  font-size: 0.61rem;
+}
+
+.exchange-party > p {
+  margin-top: 5px;
+  padding: 3px 6px;
+  border-radius: 4px;
+  color: #7bccd4;
+  background: rgba(34, 211, 238, 0.055);
+  font-size: 0.59rem;
+}
+
+.exchange-party:last-child > p {
+  color: #b6a7ea;
+  background: rgba(167, 139, 250, 0.07);
+}
+
+.exchange-party-arrow {
+  display: grid;
+  width: 30px;
+  place-items: center;
+  color: #547084;
+}
+
+.exchange-card-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin: 10px 1px;
+  color: var(--muted-deep);
+  font-size: 0.64rem;
+  line-height: 1.5;
+}
+
+.exchange-card-note svg {
+  flex: 0 0 auto;
+  margin-top: 1px;
+  color: #6b8ba2;
+}
+
+.exchange-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 11px;
+  border-top: 1px solid rgba(32, 52, 76, 0.45);
+}
+
+.exchange-timestamps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  color: #587289;
+  font-size: 0.59rem;
+}
+
+.exchange-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.exchange-history {
+  margin-top: 11px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(32, 52, 76, 0.45);
+}
+
+.exchange-history summary {
+  width: fit-content;
+  color: var(--muted-deep);
+  font-size: 0.64rem;
+  cursor: pointer;
+  list-style-position: inside;
+}
+
+.exchange-history summary:hover {
+  color: var(--text-soft);
+}
+
+.exchange-history ol {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 9px;
+  padding: 0 0 0 2px;
+  list-style: none;
+}
+
+.exchange-history li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 8px;
+  border-left: 2px solid var(--line-strong);
+  color: #b8ccdd;
+  background: rgba(255, 255, 255, 0.012);
+  font-size: 0.63rem;
+}
+
+.exchange-history small {
+  color: var(--muted-deep);
+  font-size: 0.58rem;
+  text-align: right;
+}
+
+.admin-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(310px, 0.75fr);
+  align-items: start;
+  gap: 16px;
+}
+
+.status-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.status-summary-item {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.015);
+  text-align: left;
+  transition:
+    border-color 150ms ease,
+    background 150ms ease;
+}
+
+.status-summary-item:hover {
+  border-color: #3a5772;
+  background: rgba(255, 255, 255, 0.028);
+}
+
+.status-summary-item span {
+  overflow: hidden;
+  width: 100%;
+  color: var(--muted-deep);
+  font-size: 0.58rem;
+  line-height: 1.3;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.status-summary-item strong {
+  color: #cfe4f3;
+  font-family: var(--font-mono);
+  font-size: 1.06rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.status-summary-active {
+  border-color: rgba(34, 211, 238, 0.4);
+  background: rgba(34, 211, 238, 0.065);
+}
+
+.status-summary-active strong {
+  color: #bffbff;
+}
+
+.admin-grid .panel > .btn-ghost {
+  margin-top: 10px;
+}
+
+.ml-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  align-items: start;
+  gap: 16px;
+}
+
+.chart-panel {
+  min-width: 0;
+}
+
+.chart-wrapper {
+  width: 100%;
+  min-height: 280px;
+  margin-top: 3px;
+}
+
+.recharts-cartesian-axis-tick-value {
+  fill: #839ab1;
+}
+
+.recharts-legend-item-text {
+  color: #9eb3c8 !important;
+  font-size: 0.7rem;
+}
+
+.ml-note-grid {
+  display: grid;
+  margin-top: 8px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.ml-note-grid > div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 9px 10px;
+  border: 1px solid rgba(32, 52, 76, 0.66);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.014);
+}
+
+.ml-note-grid span {
+  color: var(--muted-deep);
+  font-size: 0.58rem;
+}
+
+.ml-note-grid strong {
+  color: #bdf9ff;
+  font-size: 0.73rem;
+  font-weight: 600;
+}
+
+.confusion-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.model-status-card {
+  border-color: rgba(167, 139, 250, 0.15);
+  background:
+    linear-gradient(120deg, rgba(167, 139, 250, 0.04), transparent 45%),
+    var(--panel-soft);
+}
+
+.model-status-card .summary-list {
+  margin-bottom: 4px;
+}
+
+@media (max-width: 1120px) {
+  .admin-grid,
+  .ml-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .request-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .exchange-card-head {
+    flex-direction: column;
+  }
+
+  .exchange-card-status {
+    align-items: flex-start;
+    flex-direction: row;
+    gap: 9px;
+  }
+
+  .exchange-card-footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .exchange-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .status-summary-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .confusion-pair {
+    grid-template-columns: 1fr;
+  }
+
+  .ml-note-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .exchange-card {
+    padding: 15px;
+  }
+
+  .exchange-parties {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .exchange-party:last-child {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .exchange-party-arrow {
+    width: 100%;
+    height: 23px;
+    transform: rotate(90deg);
+  }
+
+  .exchange-actions .btn {
+    flex: 1;
+  }
+
+  .exchange-history li {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .exchange-history small {
+    text-align: left;
+  }
+
+  .status-summary-grid {
+    grid-template-columns: 1fr;
+  }
+}

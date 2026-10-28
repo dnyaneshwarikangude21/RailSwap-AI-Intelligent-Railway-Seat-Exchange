@@ -1,0 +1,99 @@
+erDiagram
+    USER ||--o{ BOOKING : owns
+    USER ||--o{ NOTIFICATION : receives
+    USER ||--o{ EXCHANGE_EVENT : acts
+    TRAIN ||--o{ JOURNEY : operates
+    JOURNEY ||--o{ COACH : contains
+    JOURNEY ||--o{ BOOKING : has
+    COACH ||--o{ BERTH : contains
+    BERTH ||--o{ BOOKING : assigned
+    BOOKING ||--o| PREFERENCE : configures
+    BOOKING ||--o{ EXCHANGE_REQUEST : requests
+    BOOKING ||--o{ EXCHANGE_REQUEST : receives
+    EXCHANGE_REQUEST ||--o{ EXCHANGE_EVENT : records
+
+    USER {
+        int id PK
+        string display_name
+        string email UK
+        string password_hash
+        string role
+        boolean share_display_name
+        datetime created_at
+    }
+
+    TRAIN {
+        int id PK
+        string train_number UK
+        string train_name
+        string source
+        string destination
+    }
+
+    JOURNEY {
+        int id PK
+        int train_id FK
+        date journey_date
+        string departure_time
+        string arrival_time
+    }
+
+    COACH {
+        int id PK
+        int journey_id FK
+        string coach_number
+        string coach_type
+        int berth_count
+    }
+
+    BERTH {
+        int id PK
+        int coach_id FK
+        int berth_number
+        string berth_type
+    }
+
+    BOOKING {
+        int id PK
+        int user_id FK
+        int journey_id FK
+        int berth_id FK
+        string demo_booking_reference UK
+        string verification_status
+        datetime created_at
+    }
+
+    PREFERENCE {
+        int id PK
+        int booking_id FK
+        string desired_berth_type
+        string coach_scope
+        datetime updated_at
+    }
+
+    EXCHANGE_REQUEST {
+        int id PK
+        int requester_booking_id FK
+        int recipient_booking_id FK
+        string status
+        float compatibility_score
+        datetime created_at
+        datetime updated_at
+    }
+
+    EXCHANGE_EVENT {
+        int id PK
+        int exchange_request_id FK
+        int actor_user_id FK
+        string event_type
+        datetime created_at
+    }
+
+    NOTIFICATION {
+        int id PK
+        int user_id FK
+        string title
+        string message
+        datetime read_at
+        datetime created_at
+    }

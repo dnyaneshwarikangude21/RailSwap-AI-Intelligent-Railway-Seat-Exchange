@@ -1,0 +1,29 @@
+flowchart TD
+    Start(["Passenger requests matches for an owned booking"]) --> Pref{"Preference configured?"}
+    Pref -- No --> PrefError["Return PREFERENCE_REQUIRED"]
+    Pref -- Yes --> Active{"Requester booking already active?"}
+    Active -- Yes --> NoCandidates["Return empty result with active-exchange reason"]
+    Active -- No --> CandidateLoop["Iterate candidate bookings on same journey"]
+
+    CandidateLoop --> Self{"Same user?"}
+    Self -- Yes --> Exclude["Exclude candidate"]
+    Self -- No --> PrefBoth{"Both preferences present?"}
+    PrefBoth -- No --> Exclude
+    PrefBoth -- Yes --> Reciprocal{"Mutual berth preference?"}
+    Reciprocal -- No --> Exclude
+    Reciprocal -- Yes --> Coach{"Both coach scopes satisfied?"}
+    Coach -- No --> Exclude
+    Coach -- Yes --> Conflict{"Either booking in active exchange?"}
+    Conflict -- Yes --> Exclude
+    Conflict -- No --> HardRules{"Journey, berth records, and date valid?"}
+    HardRules -- No --> Exclude
+    HardRules -- Yes --> Eligible["Hard-eligible reciprocal pair"]
+
+    Eligible --> Score["Compute transparent weighted score"]
+    Score --> MLSafe["Optionally attach ML probability, eligibility unchanged"]
+    MLSafe --> Rank["Sort score descending, booking ID ascending"]
+    Exclude --> CandidateLoop
+    Rank --> Result["Return ranked candidates plus exclusion counts and limitations"]
+    NoCandidates --> Result
+    PrefError --> Done(["API response"])
+    Result --> Done

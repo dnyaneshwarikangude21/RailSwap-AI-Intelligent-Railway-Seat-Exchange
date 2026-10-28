@@ -1,0 +1,184 @@
+{
+  "available": true,
+  "generated_at_utc": "2026-10-28T17:45:37.870418+00:00",
+  "dataset": {
+    "path": "D:\\Railway seat exchange\\backend\\ml\\data\\synthetic_pairs.csv",
+    "rows": 4320,
+    "test_rows": 1080,
+    "test_groups": 90,
+    "features": [
+      "same_journey",
+      "reciprocal_match",
+      "preference_compatibility",
+      "coach_compatibility",
+      "berth_proximity",
+      "valid_berth_pair",
+      "journey_active",
+      "scope_satisfied"
+    ],
+    "target": "synthetic_compatible",
+    "target_description": "1 when the synthetic pair satisfies all documented hard-eligibility criteria, otherwise 0. This is synthetic compatibility, not real-world passenger acceptance.",
+    "test_positive_rate": 0.3796
+  },
+  "model": {
+    "artifact": "D:\\Railway seat exchange\\backend\\ml\\saved_models\\railswap_compatibility_rf.joblib",
+    "type": "RandomForestClassifier",
+    "feature_importance": [
+      {
+        "feature": "preference_compatibility",
+        "importance": 0.33
+      },
+      {
+        "feature": "reciprocal_match",
+        "importance": 0.2841
+      },
+      {
+        "feature": "coach_compatibility",
+        "importance": 0.152
+      },
+      {
+        "feature": "same_journey",
+        "importance": 0.1013
+      },
+      {
+        "feature": "journey_active",
+        "importance": 0.0503
+      },
+      {
+        "feature": "scope_satisfied",
+        "importance": 0.0479
+      },
+      {
+        "feature": "valid_berth_pair",
+        "importance": 0.0317
+      },
+      {
+        "feature": "berth_proximity",
+        "importance": 0.0027
+      }
+    ]
+  },
+  "ml": {
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "confusion_matrix": [
+      [
+        670,
+        0
+      ],
+      [
+        0,
+        410
+      ]
+    ],
+    "classification_report": {
+      "0": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 670.0
+      },
+      "1": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 410.0
+      },
+      "accuracy": 1.0,
+      "macro avg": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 1080.0
+      },
+      "weighted avg": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 1080.0
+      }
+    },
+    "precision_at_k": {
+      "k": 5,
+      "mean_precision_at_k": 0.8289,
+      "groups_evaluated": 90,
+      "note": "Per-scenario precision among the top-k synthetic candidates, averaged equally across test scenarios."
+    }
+  },
+  "rule_baseline": {
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "confusion_matrix": [
+      [
+        670,
+        0
+      ],
+      [
+        0,
+        410
+      ]
+    ],
+    "classification_report": {
+      "0": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 670.0
+      },
+      "1": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 410.0
+      },
+      "accuracy": 1.0,
+      "macro avg": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 1080.0
+      },
+      "weighted avg": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 1080.0
+      }
+    },
+    "precision_at_k": {
+      "k": 5,
+      "mean_precision_at_k": 0.7267,
+      "groups_evaluated": 90,
+      "note": "Per-scenario precision among the top-k synthetic candidates, averaged equally across test scenarios."
+    },
+    "definition": "Predict compatible if same_journey, reciprocal_match, preference_compatibility >= 0.60, coach_compatibility >= 0.50, valid_berth_pair, journey_active, and scope_satisfied all hold. Rank candidates by the transparent weighted score."
+  },
+  "inference_latency": {
+    "samples": 300,
+    "mean_ms": 34.7123,
+    "median_ms": 33.7868,
+    "p95_ms": 42.993,
+    "note": "Single-row, single-process local measurement after warm-up."
+  },
+  "comparison": {
+    "f1_delta_ml_minus_baseline": 0.0,
+    "precision_at_k_delta_ml_minus_baseline": 0.1022
+  },
+  "limitations": [
+    "The target is generated from documented synthetic rules, not real passenger acceptance.",
+    "Features overlap with the labeling rules, so high metrics measure implementation consistency.",
+    "The synthetic distribution is artificial and does not represent a real railway passenger population.",
+    "This experiment does not establish causal or real-world effectiveness.",
+    "Precision@K averages equally across synthetic scenarios and is not an operational acceptance metric."
+  ],
+  "reproducibility": {
+    "random_seed": 42,
+    "split": "GroupShuffleSplit on group_id with test_size=0.25",
+    "train_command": "python -m backend.ml.train_model",
+    "evaluate_command": "python -m backend.ml.evaluate_model"
+  }
+}

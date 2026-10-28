@@ -1,0 +1,29 @@
+stateDiagram-v2
+    [*] --> PENDING: Requester creates consent request
+    PENDING --> ACCEPTED_BY_BOTH: Recipient accepts
+    PENDING --> DECLINED: Recipient declines
+    PENDING --> CANCELLED: Participant cancels
+    PENDING --> EXPIRED: Admin/system expiry
+
+    ACCEPTED_BY_BOTH --> AWAITING_EXTERNAL_AUTHORIZATION: Admin starts simulated gate
+    ACCEPTED_BY_BOTH --> CANCELLED: Participant cancels
+    ACCEPTED_BY_BOTH --> EXPIRED: Admin/system expiry
+
+    AWAITING_EXTERNAL_AUTHORIZATION --> COMPLETED: Admin completes simulation
+    AWAITING_EXTERNAL_AUTHORIZATION --> CANCELLED: Participant cancels
+
+    DECLINED --> [*]
+    CANCELLED --> [*]
+    COMPLETED --> [*]
+    EXPIRED --> [*]
+
+    note right of ACCEPTED_BY_BOTH
+        Consent exists only inside this
+        prototype. It is not official
+        railway authorization.
+    end note
+
+    note right of COMPLETED
+        Terminal simulated state.
+        No real reservation is changed.
+    end note

@@ -1,0 +1,38 @@
+sequenceDiagram
+    autonumber
+    actor Requester
+    participant Web as React client
+    participant API as Flask API
+    participant Match as Matching service
+    participant DB as SQLite
+    actor Recipient
+    participant Admin
+
+    Requester->>Web: Review eligible reciprocal match
+    Web->>API: POST /api/exchanges
+    API->>Match: Re-check ownership and hard eligibility
+    Match-->>API: Eligible + score
+    API->>DB: Create PENDING request + event
+    API->>DB: Create recipient notification
+    API-->>Web: 201 exchange PENDING
+    Web-->>Requester: "Pending, not an official change"
+
+    Recipient->>Web: Open exchange request
+    Web->>API: POST /api/exchanges/{id}/accept
+    API->>DB: Conditional PENDING -> ACCEPTED_BY_BOTH
+    API->>DB: Add event + notify requester
+    API-->>Web: Updated exchange
+    Web-->>Recipient: Accepted by both application users
+
+    Admin->>Web: Open admin console
+    Web->>API: GET /api/admin/exchanges
+    API-->>Web: Redacted exchange summaries
+    Admin->>Web: Start simulated authorization
+    Web->>API: POST /api/admin/exchanges/{id}/advance
+    API->>DB: ACCEPTED_BY_BOTH -> AWAITING_EXTERNAL_AUTHORIZATION
+    API->>DB: Event + notifications
+    API-->>Web: Updated summary
+    Admin->>Web: Complete simulation
+    Web->>API: POST advance COMPLETED
+    API->>DB: AWAITING_EXTERNAL_AUTHORIZATION -> COMPLETED
+    API-->>Web: Terminal simulated state (no railway system contacted)

@@ -1,0 +1,32 @@
+flowchart LR
+    User["Demo passenger or administrator"] --> Browser["Browser"]
+
+    subgraph Frontend["React + Vite frontend"]
+        Browser --> SPA["Single-page application"]
+        SPA --> AuthContext["Auth context + JWT storage"]
+        SPA --> Pages["Dashboard, trains, bookings, matching, exchanges, ML lab, admin"]
+        Pages --> APIClient["API client"]
+    end
+
+    APIClient -->|"JSON over HTTPS /api, Bearer JWT"| Flask["Flask application factory"]
+
+    subgraph Backend["Flask backend"]
+        Flask --> Guard["JWT + role/ownership guards"]
+        Guard --> Routes["Auth, train, booking, preference, matching, exchange, notification, analytics, admin routes"]
+        Routes --> Services["Matching, scoring, explanation, exchange, notification, ML services"]
+        Services --> ORM["SQLAlchemy ORM"]
+        Services --> Artifacts["Optional joblib model + evaluation JSON"]
+    end
+
+    ORM --> DB[("SQLite demo database")]
+    Artifacts --> Fallback["Safe rule-based fallback if unavailable"]
+
+    subgraph Offline["Offline reproducible experiment"]
+        Generator["Synthetic pair generator"] --> CSV["synthetic_pairs.csv"]
+        CSV --> Trainer["Random Forest training"]
+        Trainer --> Joblib["Joblib model artifact"]
+        Trainer --> Report["Evaluation metrics"]
+        Report --> Artifacts
+    end
+
+    External["No railway API, payment system, or identity service"] -.->|"Explicitly not connected"| Flask
