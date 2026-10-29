@@ -314,3 +314,8 @@ docs/
 - [Exchange sequence](docs/diagrams/exchange_sequence.mmd)
 - [Matching flow](docs/diagrams/matching_flow.mmd)
 - [State machine](docs/diagrams/exchange_state.mmd)
+
+
+## Contribution
+
+This repository is a fork of the original RailSwap AI project.
